@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Account Management";
+}
+
+<div class="mb-3">
+    <h2>Account Management</h2>
+</div>
+<table class="table  mt-2 align-middle small">
+    <thead class="table-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">PhoneNumber</th>
+        <th scope="col">Role</th>
+        <th scope="col">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <th scope="row">@user.Id</th>
+            <td>
+                <a asp-controller="User" asp-action="Preview" asp-route-id="@user.Id" class="link-primary">
+                    @user.FirstName @user.LastName
+                </a>
+            </td>
+            <td>@user.Email</td>
+            <td>@user.Address</td>
+            <td>@user.PhoneNumber</td>
+            <td>@user.Role</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="AccountUpdate" asp-route-id="@user.Id">Update</a>
+                <a class="btn btn-sm btn-danger" asp-controller="Admin" asp-action="AccountDelete" asp-route-id="@user.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

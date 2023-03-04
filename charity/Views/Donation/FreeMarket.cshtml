@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Free Market";
+}
+<div>
+    <div class="mb-2">
+        <h1 >Free Market</h1>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @await Html.PartialAsync("~/Views/Shared/Empty.cshtml")
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var donation in Model)
+            {
+                <div class="col-md-3">
+                    <a class="text-dark" asp-controller="Donation" asp-action="FreeMarketItem" asp-route-id="@donation.Id">
+                        <div class="card mb-4 ">
+                            <div class="card-body">
+                                <div class="image-container">
+                                    <img src="@donation.Image" alt="@donation.Title"/>
+                                </div>
+                                <div class="mt-2 fs-4 fw-bold">@donation.Title</div>
+                                <div class=" small text-muted">@donation.Comment</div>
+                                <div >Donor: @donation.Donor.FirstName @donation.Donor.LastName</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+
+
+</div>

@@ -1,0 +1,36 @@
+@model List<ApplicationModel>
+@{
+    ViewData["Title"] = "Application Status";
+}
+<div class="row">
+    @foreach (var application in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-4">
+
+                <div class="card-body">
+                    <div class="image-container" style="height: 200px">
+                         <img style="width: 100%" src="@application.SupportDocumentUrl"/>
+                    </div>
+                    <div class="mt-2"><strong>Support Type</strong>: @application.SupportType</div>
+                    <div class="text-muted mt-1 mb-1 small">@application.ReasonForSupport</div>
+                    <div class="card-text">Support Amount: $@application.SupportAmount</div>
+                </div>
+                <div class="card-footer">
+                    @if (application.Status == ApplicationStatus.Pending)
+                    {
+                        <span class="badge bg-warning">@application.Status</span>
+                    }
+                    else if (application.Status == ApplicationStatus.Approved)
+                    {
+                        <span class="badge bg-success">@application.Status</span>
+                    }
+                    else if (application.Status == ApplicationStatus.Rejected)
+                    {
+                        <span class="badge bg-danger">@application.Status</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Donation Management";
+}
+
+<div class="mb-3">
+    <h2>Donation Management</h2>
+</div>
+<table class="table  mt-2 align-middle small">
+    <thead class="table-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Donor</th>
+        <th scope="col">Title</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Image</th>
+        <th scope="col">Donation Date</th>
+        <th scope="col">Donation Status</th>
+        <th scope="col">Receiver</th>
+        <th scope="col">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var donation in Model)
+    {
+        <tr>
+            <th scope="row">@donation.Id</th>
+            <td>
+                <a asp-controller="User" asp-action="Preview" asp-route-id="@donation.Donor.Id" class="link-primary">
+                    @donation.Donor.FirstName @donation.Donor.LastName
+                </a>
+            </td>
+            <td>@donation.Title</td>
+            <td>@donation.Comment</td>
+            <td>
+                <div class="image-container" style="width: 100px;height: 100px">
+                    <img src="@donation.Image"/>
+                </div>
+            </td>
+            <td>@donation.AddDate</td>
+            <td>
+                @{
+                    // show different color for different status
+                    if (donation.Status.ToString() == "Occupied")
+                    {
+                        <div class="badge bg-warning">@donation.Status</div>
+                    }
+                    else
+                    {
+                        <div class="badge bg-success">@donation.Status</div>
+                    }
+
+                }
+            </td>
+            <td>
+                @{
+                    if (donation.Receiver != null)
+                    {
+                        <a asp-controller="User" asp-action="Preview" asp-route-id="@donation.Receiver.Id" class="link-primary">
+                            @donation.Receiver.FirstName @donation.Receiver.LastName
+                        </a>
+                    }
+                    else
+                    {
+                        <text>Not Assigned</text>
+                    }
+                }
+            </td>
+            <td>
+                <a class="btn btn-sm btn-danger" asp-controller="Admin" asp-action="DonationDelete" asp-route-id="@donation.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

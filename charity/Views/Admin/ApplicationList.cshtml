@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Application Management";
+}
+
+<div class="mb-3">
+    <h2>Application Management</h2>
+</div>
+<table class="table mt-2 align-middle small">
+    <thead class="table-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Applicant</th>
+        <th scope="col">ReasonForSupport</th>
+        <th scope="col">SupportType</th>
+        <th scope="col">SupportDocumentUrl</th>
+        <th scope="col">SupportAmount</th>
+        <th scope="col">SubmissionDate</th>
+        <th scope="col">ApprovalDate</th>
+        <th scope="col">Status</th>
+        <th scope="col">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var application in Model)
+    {
+        <tr>
+            <th scope="row">@application.Id</th>
+            <td>
+                <a asp-controller="User" asp-action="Preview" asp-route-id="@application.User.Id" class="link-primary">
+                    @application.User.FirstName @application.User.LastName
+                </a>
+            </td>
+            <td>@application.ReasonForSupport</td>
+            <td>@application.SupportType</td>
+            <td>
+                <div class="image-container" style="width: 100px;height: 100px">
+                    <img src="@application.SupportDocumentUrl"/>
+                </div>
+            </td>
+            <td>@application.SupportAmount</td>
+            <td>@application.SubmissionDate</td>
+            <td>
+                @{
+                    // check if ApprovalDate is null
+                    if (application.ApprovalDate != null)
+                    {
+                        <text>@application.ApprovalDate</text>
+                    }
+                    else
+                    {
+                        <text>Not Approved</text>
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    // show different color for different status
+                    if (application.Status.ToString() == "Pending")
+                    {
+                        <div class="badge bg-warning">@application.Status</div>
+                    }
+                    else if (application.Status.ToString() == "Approved")
+                    {
+                        <div class="badge bg-success">@application.Status</div>
+                    }
+                    else if (application.Status.ToString() == "Rejected")
+                    {
+                        <div class="badge bg-danger">@application.Status</div>
+                    }
+                }
+            </td>
+            
+            <td>
+               <button class="btn btn-sm btn-primary @((application.Status.ToString() == "Approved" || application.Status.ToString() != "Pending") ? "disabled" : "")">
+                   <a asp-controller="Admin" asp-action="ApplicationApprove" asp-route-id="@application.Id">Approve</a>
+               </button>
+               <button class="btn btn-sm btn-danger @((application.Status.ToString() == "Rejected" || application.Status.ToString() != "Pending") ? "disabled" : "")">
+                   <a asp-controller="Admin" asp-action="ApplicationReject" asp-route-id="@application.Id">Reject</a>
+               </button>
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

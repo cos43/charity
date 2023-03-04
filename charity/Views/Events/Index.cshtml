@@ -1,0 +1,49 @@
+@{
+    ViewData["title"] = "Events";
+}
+<div>
+    <div class="mb-2">
+        <h1>Events</h1>
+        @if (Context.Session.GetString("Role") == "Admin")
+        {
+            <a asp-controller="Events" asp-action="Create">
+                <button class="btn btn-primary">Add Event</button>
+            </a>
+        }
+    </div>
+      @if (Model == null || Model.Count == 0)
+        {
+            @await Html.PartialAsync("~/Views/Shared/Empty.cshtml")
+        }
+      else
+      {
+          <div class="row">
+              @foreach (var events in Model)
+              {
+                  <div class="col-md-3">
+                      <a class="text-dark" asp-controller="Events" asp-action="EventsItem" asp-route-id="@events.Id">
+                          <div class="card mb-4 ">
+                              <div class="card-body">
+                                  <div class="image-container">
+                                      <img src="@events.ImageUrl" alt="@events.EventName"/>
+                                  </div>
+                                  <div class="mt-2 fs-4 fw-bold">@events.EventName</div>
+                                  <div class=" small text-muted">@events.Description</div>
+                                  <!-- event date -->
+                                  <div class="text-muted small"></div>
+                                  @* Venue *@
+                                  <div class="d-flex align-items-center justify-content-between">
+                                      <div class="small text-muted">
+                                          <strong>Venue:</strong> @events.Venue
+                                      </div>
+                                      <div class="small text-muted">@events.EventDate</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              }
+          </div>
+      }
+   
+</div>

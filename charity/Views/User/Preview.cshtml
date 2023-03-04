@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Preview";
+}
+@model UserModel
+
+<div class="mb-3">
+    <h1>@Model.FirstName @Model.LastName 's profile</h1>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">User Information</h5>
+        <hr/>
+        <div class="form-group row d-flex flex-row align-items-center">
+            <label class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-10">
+                @Model.FirstName @Model.LastName
+            </div>
+        </div>
+        <div class="form-group row d-flex flex-row align-items-center">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                @Model.Email
+            </div>
+        </div>
+        <div class="form-group row d-flex flex-row align-items-center">
+            <label class="col-sm-2 col-form-label">Address:</label>
+            <div class="col-sm-10">
+                @Model.Address
+            </div>
+        </div>
+        <div class="form-group row d-flex flex-row align-items-center">
+            <label class="col-sm-2 col-form-label">Phone Number:</label>
+            <div class="col-sm-10 ">
+                @Model.PhoneNumber
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Recevied Donation</h5>
+        <hr/>
+        <div class="row">
+            @foreach (var donation in (IEnumerable<DonationModel>)ViewBag.ReceivedDonation)
+            {
+                <div class="col-md-3">
+                    <a class="text-dark" asp-controller="Donation" asp-action="FreeMarketItem" asp-route-id="@donation.Id">
+                        <div class="card mb-4 ">
+                            <div class="card-body">
+                                <div class="image-container">
+                                    <img src="@donation.Image" alt="@donation.Title"/>
+                                </div>
+                                <div class="mt-2 fs-4 fw-bold">@donation.Title</div>
+                                <div class=" small text-muted">@donation.Comment</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

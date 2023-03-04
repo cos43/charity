@@ -1,0 +1,53 @@
+@model ApplicationModel
+@{
+    ViewData["Title"] = "SubmitApplication";
+}
+
+
+<h2>Submit Support Application</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-2 ">
+        <label asp-for="SupportType" class="control-label"></label>
+        <select asp-for="SupportType" class="form-control">
+            <option value="OneTime">One Time</option>
+            <option value="DailyGrocery">Daily Grocery</option>
+        </select>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="ReasonForSupport" class="control-label"></label>
+        <textarea asp-for="ReasonForSupport" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group mb-2">
+        <label class="control-label"></label>
+        <input type="file" class="form-control-file" accept="image/x-png,image/gif,image/jpeg" onchange="previewImage(this)"/>
+    </div>
+    <div class="d-flex" id="imagePreview">
+        
+    </div>
+    <div class="form-group mb-2" style="display:none">
+        <label asp-for="SupportDocumentUrl" class="control-label"></label>
+        <input asp-for="SupportDocumentUrl" id="SupportDocumentUrl" type="text" class="form-control-file"/>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="SupportAmount" class="control-label"></label>
+        <input asp-for="SupportAmount" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+    function previewImage(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var previewContainer = $(input).closest(".form-group").find(".preview-container");
+            previewContainer.empty();
+            previewContainer.append("<img src='" + e.target.result + "' class='img-thumbnail' />");
+            var base64 = e.target.result
+            $("#SupportDocumentUrl").val(base64);
+             $("#imagePreview").empty();
+            $("#imagePreview").append("<img src='" + e.target.result + "' class='img-thumbnail' style='height:100px' />")
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>

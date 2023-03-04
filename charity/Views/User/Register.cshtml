@@ -1,0 +1,105 @@
+@model UserModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - charity</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <style>
+        html,body{
+            background-color: #f8f9fd;
+        }
+        .wrap{
+                width: 100%;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 5px;
+                box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="wrap mt-5">
+                    <div class="login-wrap p-5 p-md-5">
+                        <h2>Register</h2>
+                        <form asp-action="Register" method="post">
+
+                            <div class="form-group mb-1">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control"/>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" class="form-control"/>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control"/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" class="form-control"/>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="Address"></label>
+                                <input asp-for="Address" class="form-control"/>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label asp-for="Role"></label>
+                                <select asp-for="Role" class="form-control">
+                                    <option value="1">Needy People</option>
+                                    <option value="2">Sponsor</option>
+                                    <option value="3">Volunteer</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit mt-2 pt-2 pb-2">Submit</button>
+
+                            </div>
+                        </form>
+                        <p class="text-center mt-4">Already a member? <a class="link-primary" data-toggle="tab" href="/login">Sign In</a></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>

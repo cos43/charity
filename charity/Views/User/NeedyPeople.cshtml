@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Needy People List";
+}
+<h2>Needy people listing</h2>
+<table class="table small">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <th scope="row">@user.Id</th>
+            <td>@user.FirstName @user.LastName</td>
+            <td>@user.Address</td>
+            <td>@user.PhoneNumber</td>
+            <td><a class="link-primary" href="/preview/@user.Id">Detail</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

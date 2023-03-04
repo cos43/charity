@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Event Detail";
+}
+
+@model EventsModel
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <img src="@Model.ImageUrl" class="card-img-top" alt="...">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h1>@Model.EventName</h1>
+        <div class="text-muted mb-3">
+            @Model.Description
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">Venue: @Model.Venue</li>
+            <li class="list-group-item">Date: @Model.EventDate</li>
+        </ul>
+        <div class="mt-3">
+            <button
+                @if (Context.Session.GetString("UserName") == null || (bool)ViewBag.joined)
+                {
+                    <text>disabled</text>
+                }
+                data-bs-toggle="modal" data-bs-target="#confirm" class="btn btn-primary">
+                @if ((bool)ViewBag.joined)
+                {
+                    <div>Joined</div>
+                }
+                else
+                {
+                    <div>Join</div>
+                }
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm" tabindex="-1" aria-labelledby="confirmLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="confirmLabel">
+                    Confirm
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to join this event?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a asp-controller="Events" asp-action="Join" asp-route-id="@Model.Id">
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
